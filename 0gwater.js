@@ -16,6 +16,8 @@ async function main() {
                 function (error, stdout, stderr) {
                     var ary = stdout.split(" ")
                     console.log(stdout);
+
+                    console.log(ary);
                     console.log(ary[25]);
 
                     if (error !== null) {
