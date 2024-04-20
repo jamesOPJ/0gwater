@@ -12,7 +12,7 @@ async function main() {
         function (error, stdout, stderr) {
          var a = stdout.split(" ");
          address = a[2];
-         console.log(a);
+         console.log(address);
             if (error !== null) {
                 console.log('exec error: ' + error);
             }
