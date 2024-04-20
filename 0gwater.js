@@ -18,7 +18,7 @@ async function main() {
                     console.log(stdout);
 
                     console.log(ary);
-                    console.log(ary[24]);
+                    console.log(ary[26]);
 
                     if (error !== null) {
                         console.log('exec error: ' + error);
