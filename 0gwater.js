@@ -13,17 +13,18 @@ async function main() {
          var a = stdout.split(" ");
          address = a[2];
          console.log(address);
+            exec('evmosd debug addr ' + address,
+                function (error, stdout, stderr) {
+
+                    console.log(stdout);
+                    if (error !== null) {
+                        console.log('exec error: ' + error);
+                    }
+                });
             if (error !== null) {
                 console.log('exec error: ' + error);
             }
         });
 
-    exec('evmosd debug addr ' + address,
-        function (error, stdout, stderr) {
 
-            console.log(stdout);
-            if (error !== null) {
-                console.log('exec error: ' + error);
-            }
-        });
 }
