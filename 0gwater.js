@@ -14,11 +14,10 @@ async function main() {
          console.log(address);
             exec('evmosd debug addr ' + address,
                 function (error, stdout, stderr) {
-                    var ary = stdout.split(" ")
+                    var ary = stdout.split("\n")
                     console.log(stdout);
 
                     console.log(ary);
-                    console.log(ary[25]);
 
                     if (error !== null) {
                         console.log('exec error: ' + error);
