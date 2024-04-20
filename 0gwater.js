@@ -19,14 +19,14 @@ async function main() {
             }
         });
 
-    exec('evmosd debug addr ' + address,
-        function (error, stdout, stderr) {
-
-            console.log(stdout);
-            if (error !== null) {
-                console.log('exec error: ' + error);
-            }
-        });
+    // exec('evmosd debug addr ' + address,
+    //     function (error, stdout, stderr) {
+    //
+    //         console.log(stdout);
+    //         if (error !== null) {
+    //             console.log('exec error: ' + error);
+    //         }
+    //     });
 
 
 }
