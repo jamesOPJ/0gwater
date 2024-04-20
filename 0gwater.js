@@ -9,8 +9,8 @@ async function main() {
 
     exec('evmosd keys add wallet --dry-run',
         function (error, stdout, stderr) {
-            console.log('stdout: ' + stdout);
-            console.log('stderr: ' + stderr);
+         var a = stdout.split(" ");
+         console.log(a);
             if (error !== null) {
                 console.log('exec error: ' + error);
             }
