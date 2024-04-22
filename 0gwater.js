@@ -75,6 +75,7 @@ async function faucet(hcaptchaToken){
     })
         .then((response) => {
             console.log(response.data);
+            console.log(response.data.message);
 
         })
         .catch((err) => {
