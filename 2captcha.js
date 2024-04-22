@@ -53,6 +53,7 @@ async function main() {
 }
 
 
+
 async function faucet(hcaptchaToken){
     const method = 'POST'
     const url = 'https://faucet.0g.ai/api/faucet'
