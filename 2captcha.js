@@ -1,9 +1,9 @@
 const fetch = require("node-fetch");
 const Captcha = require("@2captcha/captcha-solver")
 
-
+console.log(123123)
 hcaptcha();
-
+// faucet("123");
 
 async function hcaptcha(){
 
@@ -58,23 +58,42 @@ async function faucet(hcaptchaToken){
     const url = 'https://faucet.0g.ai/api/faucet'
 
     let body = {
-        "address":"0x076c7E08B9e8CD4E004911E1Aa04B80a5A748ae4",
+        "address":"0xd00751EF39ff5ffc709bBdC51dD43f3D8352b90f",
         "hcaptchaToken": hcaptchaToken
     }
 
     const res = await fetch(url, {
         method: method,
-        body: JSON.stringify(body)
-
-    })
+        body: JSON.stringify(body),
+        "Content-Type": "application/json; charset=utf-8",
+        "Vary":"Accept-Encoding",
+        "Server": "nginx/1.18.0 (Ubuntu)"
+        })
         .then((response) => {
-            console.log(response);
+        return response.json();
+        }).then((jsonData) => {
+        console.log(jsonData);
+        return jsonData
+        }).catch((err) => {
+        console.log('錯誤:', err);
+        });
 
-            return response.json()
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+    console.log(res.message)
+    op(res.message)
+}
+//{ message: 'Please wait 24 hours before requesting again' }
+// {message: '0xfbf24bd432f75be2ad0eb41f9da1fc697da16778332eef5e8c656b8e82e05535'}
+
+async function op(msg) {
+
+    if ( msg.includes("hours before requesting again")){
+        console.log("got")
+    }
+
+    if (msg.startsWith("0x")){
+        console.log("get")
+
+    }
 
 
 
