@@ -64,7 +64,7 @@ async function faucet(hcaptchaToken){
     const url = 'https://faucet.0g.ai/api/faucet'
 
     let body = {
-        "address":"0xd00751EF39ff5ffc709bBdC51dD43f3D8352b90f",
+        "address":address,
         "hcaptchaToken": hcaptchaToken
     }
 
