@@ -3,9 +3,8 @@ const fetch = require("node-fetch");
 
 var exec = require('child_process').exec;
 
-var address;
 
-
+var evmAddress;
 main();
 
 async function main() {
@@ -14,9 +13,9 @@ async function main() {
     exec('evmosd keys add wallet --dry-run',
         function (error, stdout, stderr) {
          var a = stdout.split(" ");
-         address = a[2];
-         console.log(address);
-            exec('evmosd debug addr ' + address,
+         var evmosAddress = a[2];
+         console.log(evmosAddress);
+            exec('evmosd debug addr ' + evmosAddress,
                 function (error, stdout, stderr) {
                     console.log(stdout);
 
@@ -26,7 +25,7 @@ async function main() {
                     var ary2 = ary1[2].split(" ")
                     console.log(ary2);
                     console.log(ary2[2]);
-
+                    evmAddress = ary2[2]
                     if (error !== null) {
                         console.log('exec error: ' + error);
                     }
@@ -64,7 +63,7 @@ async function faucet(hcaptchaToken){
     const url = 'https://faucet.0g.ai/api/faucet'
 
     let body = {
-        "address":address,
+        "address":evmAddress,
         "hcaptchaToken": hcaptchaToken
     }
 
