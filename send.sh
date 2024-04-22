@@ -1,4 +1,4 @@
-#!/usr/bin/expect
+#!~/usr/bin/expect
 #set timeout 30
 #spawn evmosd tx bank send wallet $1 1000000aevmos --gas=1 --gas-prices=1aevmos -y
 #expect "*passphrase*"
