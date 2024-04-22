@@ -10,7 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@2captcha/captcha-solver": "^1.0.0",
     "cheerio": "^1.0.0-rc.12",
+    "es6": "^0.0.7",
+    "node-fetch": "^2.6.1",
     "request": "^2.88.2"
   }
 }

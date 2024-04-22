@@ -1,11 +1,15 @@
+const Captcha = require("@2captcha/captcha-solver");
+const fetch = require("node-fetch");
 
 var exec = require('child_process').exec;
+
+var address;
+
 
 main();
 
 async function main() {
 
-    var address;
 
     exec('evmosd keys add wallet --dry-run',
         function (error, stdout, stderr) {
@@ -26,12 +30,57 @@ async function main() {
                     if (error !== null) {
                         console.log('exec error: ' + error);
                     }
+                    hcaptcha();
                 });
             if (error !== null) {
                 console.log('exec error: ' + error);
             }
         });
 
+
+
+
+}
+
+async function hcaptcha(){
+
+    const solver = new Captcha.Solver("430a15396c13e2355dc478a8ee3c8037")
+    solver.hcaptcha({
+        pageurl: "https://faucet.0g.ai/",
+        sitekey: "06ee6b5b-ef03-4491-b8ea-01fb5a80256f"
+    })
+        .then((res) => {
+            console.log(res);
+            faucet(res.data)
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+
+}
+
+async function faucet(hcaptchaToken){
+    const method = 'POST'
+    const url = 'https://faucet.0g.ai/api/faucet'
+
+    let body = {
+        "address":address,
+        "hcaptchaToken": hcaptchaToken
+    }
+
+    const res = await fetch(url, {
+        method: method,
+        body: JSON.stringify(body)
+
+    })
+        .then((response) => {
+            console.log(response);
+
+            return response.json()
+        })
+        .catch((err) => {
+            console.log(err);
+        })
 
 
 
