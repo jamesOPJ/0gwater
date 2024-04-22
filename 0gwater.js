@@ -10,7 +10,10 @@ main();
 async function main() {
 
 
-    exec('evmosd keys add wallet --dry-run',
+    exec('evmosd keys add wallet << EOF\n' +
+        '11111111\n' +
+        'y\n' +
+        'EOF',
         function (error, stdout, stderr) {
          var a = stdout.split(" ");
          var evmosAddress = a[2];
