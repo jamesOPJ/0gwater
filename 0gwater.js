@@ -1,10 +1,12 @@
 const Captcha = require("@2captcha/captcha-solver");
 const fetch = require("node-fetch");
+const {sleep} = require("@2captcha/captcha-solver/dist/utils/generic");
 
 var exec = require('child_process').exec;
 
 
 var evmAddress;
+var evmosAddress
 main();
 
 async function main() {
@@ -16,7 +18,7 @@ async function main() {
         'EOF',
         function (error, stdout, stderr) {
          var a = stdout.split(" ");
-         var evmosAddress = a[2];
+         evmosAddress = a[2];
          console.log(evmosAddress);
             exec('evmosd debug addr ' + evmosAddress,
                 function (error, stdout, stderr) {
@@ -117,6 +119,16 @@ async function op(msg) {
 
     if (msg.startsWith("0x")){
         console.log("get")
+        for (let i = 0; i < 3; i++) {
+            exec('evmosd q bank balances ' + evmosAddress, function (error, stdout, stderr) {
+                console.log(stdout)
+                if (error !== null) {
+                    console.log('exec error: ' + error);
+                }
+            })
+            await sleep(5000)
+        }
+
 
     }
 
