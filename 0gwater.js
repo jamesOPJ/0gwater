@@ -117,6 +117,11 @@ async function op(msg) {
         console.log("got")
     }
 
+    if ( msg.includes("Unable to send")){
+        console.log("retry hcaptcha")
+        hcaptcha()
+    }
+
     if (msg.startsWith("0x")){
         console.log("get")
         for (let i = 0; i < 3; i++) {
