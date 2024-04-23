@@ -124,15 +124,22 @@ async function op(msg) {
 
     if (msg.startsWith("0x")){
         console.log("get")
-        for (let i = 0; i < 3; i++) {
-            exec('evmosd q bank balances ' + evmosAddress, function (error, stdout, stderr) {
-                console.log(stdout)
-                if (error !== null) {
-                    console.log('exec error: ' + error);
-                }
-            })
-            await sleep(5000)
-        }
+            while (true){
+                exec('evmosd q bank balances ' + evmosAddress, function (error, stdout, stderr) {
+                    console.log(stdout)
+                    // var s1 = stdout.split('\n')
+                    // if (s1.size() >5) shBallance()
+
+                    if (error !== null) {
+                        console.log('exec error: ' + error);
+                    }
+                })
+
+
+                await sleep(5000)
+            }
+
+
 
 
     }
