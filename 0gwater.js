@@ -11,8 +11,9 @@ main();
 
 async function main() {
 
+    await exec('curl https://faucet.0g.ai/')
 
-    exec('evmosd keys add wallet << EOF\n' +
+    await exec('evmosd keys add wallet << EOF\n' +
         '11111111\n' +
         'y\n' +
         'EOF',
