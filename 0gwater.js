@@ -73,9 +73,26 @@ async function faucet(hcaptchaToken){
     const res = await fetch(url, {
         method: method,
         body: JSON.stringify(body),
-        "Content-Type": "application/json; charset=utf-8",
-        "Vary":"Accept-Encoding",
-        "Server": "nginx/1.18.0 (Ubuntu)"
+        ":authority":"faucet.0g.ai",
+        ":method":"POST",
+        ":path":"/api/faucet",
+        ":scheme":"https",
+        "Accept":"*/*",
+        "Accept-Encoding":"gzip, deflate, br, zstd",
+        "Accept-Language":"zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7,zh-CN;q=0.6",
+        "Content-Length":"2083",
+        "Content-Type":"text/plain;charset=UTF-8",
+        "Cookie":"_ga=GA1.1.1036530886.1711628950; _ga_SE6RJSG9GC=GS1.1.1711628950.1.0.1711628966.0.0.0",
+        "Origin":"https://faucet.0g.ai",
+        "Referer":"https://faucet.0g.ai/",
+        "Sec-Ch-Ua":'Not A(Brand";v="99", "Google Chrome";v="121", "Chromium";v="121',
+        "Sec-Ch-Ua-Mobile":"?1",
+        "Sec-Ch-Ua-Platform":"Android",
+        "Sec-Fetch-Dest":"empty",
+        "Sec-Fetch-Mode":"cors",
+        "Sec-Fetch-Site":"same-origin",
+        "User-Agent":"Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Mobile Safari/537.36"
+
     })
         .then((response) => {
             return response.json();
