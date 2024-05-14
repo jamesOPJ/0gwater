@@ -7,13 +7,14 @@ var exec = require('child_process').exec;
 
 var evmAddress;
 var evmosAddress
-main();
+// main();
+hcaptcha();
 
 async function main() {
 
     exec('curl https://faucet.0g.ai/')
 
-    exec('evmosd keys add wallet << EOF\n' +
+    exec('0gchaind keys add wallet << EOF\n' +
         '11111111\n' +
         'y\n' +
         'EOF',
@@ -21,7 +22,7 @@ async function main() {
          var a = stdout.split(" ");
          evmosAddress = a[2];
          console.log(evmosAddress);
-            exec('evmosd debug addr ' + evmosAddress,
+            exec('0gchaind debug addr ' + evmosAddress,
                 function (error, stdout, stderr) {
                     console.log(stdout);
 
@@ -69,40 +70,44 @@ async function faucet(hcaptchaToken){
     const url = 'https://faucet.0g.ai/api/faucet'
 
     let body = {
-        "address":evmAddress,
+        // "address":evmAddress,
+        "address":"F16F29B60221F9D64B5D58CFB78CB49ED4657703",
         "hcaptchaToken": hcaptchaToken
     }
 
-    const res = await fetch(url, {
+    var res = await fetch(url, {
         method: method,
         body: JSON.stringify(body),
-        ":authority":"faucet.0g.ai",
-        ":method":"POST",
-        ":path":"/api/faucet",
-        ":scheme":"https",
-        "Accept":"*/*",
-        "Accept-Encoding":"gzip, deflate, br, zstd",
-        "Accept-Language":"zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7,zh-CN;q=0.6",
-        "Content-Length":"2083",
-        "Content-Type":"text/plain;charset=UTF-8",
-        "Cookie":"_ga=GA1.1.1036530886.1711628950; _ga_SE6RJSG9GC=GS1.1.1711628950.1.0.1711628966.0.0.0",
-        "Origin":"https://faucet.0g.ai",
-        "Referer":"https://faucet.0g.ai/",
-        "Sec-Ch-Ua":'Not A(Brand";v="99", "Google Chrome";v="121", "Chromium";v="121',
-        "Sec-Ch-Ua-Mobile":"?1",
-        "Sec-Ch-Ua-Platform":"Android",
-        "Sec-Fetch-Dest":"empty",
-        "Sec-Fetch-Mode":"cors",
-        "Sec-Fetch-Site":"same-origin",
-        "User-Agent":"Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Mobile Safari/537.36"
+        "content-type" : "application/json;charset=UTF-8"
+        // ":authority":"faucet.0g.ai",
+        // ":method":"POST",
+        // ":path":"/api/faucet",
+        // ":scheme":"https",
+        // "Accept":"*/*",
+        // "Accept-Encoding":"gzip, deflate, br, zstd",
+        // "Accept-Language":"zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7,zh-CN;q=0.6",
+        // "Content-Length":"2083",
+        // "Content-Type":"text/plain;charset=UTF-8",
+        // "Cookie":"_ga=GA1.1.1036530886.1711628950; _ga_SE6RJSG9GC=GS1.1.1711628950.1.0.1711628966.0.0.0",
+        // "Origin":"https://faucet.0g.ai",
+        // "Referer":"https://faucet.0g.ai/",
+        // "Sec-Ch-Ua":'Not A(Brand";v="99", "Google Chrome";v="121", "Chromium";v="121',
+        // "Sec-Ch-Ua-Mobile":"?1",
+        // "Sec-Ch-Ua-Platform":"Android",
+        // "Sec-Fetch-Dest":"empty",
+        // "Sec-Fetch-Mode":"cors",
+        // "Sec-Fetch-Site":"same-origin",
+        // "User-Agent":"Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Mobile Safari/537.36"
 
     })
         .then((response) => {
+            console.log(response.body.message);
             return response.json();
         }).then((jsonData) => {
             console.log(jsonData);
             return jsonData
-        }).catch((err) => {
+        }).catch((err,res) => {
+
             console.log('錯誤:', err);
         });
 
@@ -118,15 +123,16 @@ async function op(msg) {
         console.log("got")
     }
 
-    if ( msg.includes("Unable to send")){
+    if ( msg.includes("Unable to Send")){
         console.log("retry hcaptcha")
-        hcaptcha()
+        await sleep(5000)
+        await hcaptcha()
     }
 
     if (msg.startsWith("0x")){
         console.log("get")
             while (true){
-                exec('evmosd q bank balances ' + evmosAddress, function (error, stdout, stderr) {
+                exec('0gchaind q bank balances ' + evmosAddress, function (error, stdout, stderr) {
                     console.log(stdout)
                     // var s1 = stdout.split('\n')
                     // if (s1.size() >5) shBallance()
